@@ -129,11 +129,11 @@ var PlacesAutocomplete = function (_React$Component) {
     _this.handleSelect = function (address, placeId) {
       _this.clearSuggestions();
       var fake = document.createElement('div');
-      _this.service = new window.google.maps.places.PlacesService(fake);
-      _this.service.getDetails({
-        placeId: _this.params.venue,
+      var places = new window.google.maps.places.PlacesService(fake);
+      places.getDetails({
+        placeId: placeId,
         sessionToken: _this.sessionToken,
-        fields: ['formatted_address', 'name', 'place_id', 'type', 'geometry', 'types']
+        fields: ['formatted_address', 'name', 'place_id', 'geometry', 'types']
       }, function (details) {
         _this.startSession();
         if (_this.props.onSelect) {

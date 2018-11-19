@@ -134,19 +134,12 @@ class PlacesAutocomplete extends React.Component {
   handleSelect = (address, placeId) => {
     this.clearSuggestions();
     const fake = document.createElement('div');
-    this.service = new window.google.maps.places.PlacesService(fake);
-    this.service.getDetails(
+    const places = new window.google.maps.places.PlacesService(fake);
+    places.getDetails(
       {
-        placeId: this.params.venue,
+        placeId: placeId,
         sessionToken: this.sessionToken,
-        fields: [
-          'formatted_address',
-          'name',
-          'place_id',
-          'type',
-          'geometry',
-          'types',
-        ],
+        fields: ['formatted_address', 'name', 'place_id', 'geometry', 'types'],
       },
       details => {
         this.startSession();
