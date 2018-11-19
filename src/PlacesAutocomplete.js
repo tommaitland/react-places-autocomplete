@@ -111,7 +111,7 @@ class PlacesAutocomplete extends React.Component {
         {
           ...this.props.searchOptions,
           input: value,
-          sessionToken: this.sessionToken,
+          sessiontoken: this.sessionToken,
         },
         this.autocompleteCallback
       );
@@ -138,7 +138,7 @@ class PlacesAutocomplete extends React.Component {
     places.getDetails(
       {
         placeId: placeId,
-        sessionToken: this.sessionToken,
+        sessiontoken: this.sessionToken,
         fields: ['formatted_address', 'name', 'place_id', 'geometry', 'types'],
       },
       details => {
