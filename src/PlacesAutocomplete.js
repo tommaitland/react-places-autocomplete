@@ -65,6 +65,8 @@ class PlacesAutocomplete extends React.Component {
       );
     }
 
+    
+    this.startSession();
     this.autocompleteService = new window.google.maps.places.AutocompleteService();
     this.autocompleteOK = window.google.maps.places.PlacesServiceStatus.OK;
     this.setState(state => {
@@ -75,6 +77,10 @@ class PlacesAutocomplete extends React.Component {
       }
     });
   };
+
+  startSession = () => {
+    this.sessionToken = new google.maps.places.AutocompleteSessionToken();
+  }
 
   autocompleteCallback = (predictions, status) => {
     this.setState({ loading: false });
@@ -106,6 +112,7 @@ class PlacesAutocomplete extends React.Component {
         {
           ...this.props.searchOptions,
           input: value,
+          sessionToken: this.sessionToken,
         },
         this.autocompleteCallback
       );
