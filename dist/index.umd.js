@@ -187,7 +187,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.setState({ loading: true });
 	        _this.autocompleteService.getPlacePredictions(_extends({}, _this.props.searchOptions, {
 	          input: value,
-	          sessiontoken: _this.sessionToken
+	          sessionToken: _this.sessionToken
 	        }), _this.autocompleteCallback);
 	      }
 	    };
@@ -212,7 +212,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var places = new window.google.maps.places.PlacesService(fake);
 	      places.getDetails({
 	        placeId: placeId,
-	        sessiontoken: _this.sessionToken,
+	        sessionToken: _this.sessionToken,
 	        fields: ['formatted_address', 'name', 'place_id', 'geometry', 'types']
 	      }, function (details) {
 	        _this.startSession();
