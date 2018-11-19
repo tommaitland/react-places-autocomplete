@@ -37,12 +37,19 @@ class AutocompleteServiceMock {
   }
 }
 
+class AutocompleteSessionTokenMock {
+  constructor() {
+    return 'xxxxxxx';
+  }
+}
+
 export const setupGoogleMock = () => {
   /*** Mock Google Maps JavaScript API ***/
   const google = {
     maps: {
       places: {
         AutocompleteService: AutocompleteServiceMock,
+        AutocompleteSessionToken: AutocompleteSessionTokenMock,
         PlacesServiceStatus: {
           INVALID_REQUEST: 'INVALID_REQUEST',
           NOT_FOUND: 'NOT_FOUND',

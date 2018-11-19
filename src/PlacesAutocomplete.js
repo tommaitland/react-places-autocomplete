@@ -65,7 +65,6 @@ class PlacesAutocomplete extends React.Component {
       );
     }
 
-
     this.startSession();
     this.autocompleteService = new window.google.maps.places.AutocompleteService();
     this.autocompleteOK = window.google.maps.places.PlacesServiceStatus.OK;
@@ -79,8 +78,8 @@ class PlacesAutocomplete extends React.Component {
   };
 
   startSession = () => {
-    this.sessionToken = new google.maps.places.AutocompleteSessionToken();
-  }
+    this.sessionToken = new window.google.maps.places.AutocompleteSessionToken();
+  };
 
   autocompleteCallback = (predictions, status) => {
     this.setState({ loading: false });
@@ -136,18 +135,28 @@ class PlacesAutocomplete extends React.Component {
     this.clearSuggestions();
     const fake = document.createElement('div');
     this.service = new window.google.maps.places.PlacesService(fake);
-    this.service.getDetails({
-      placeId: this.params.venue,
-      sessionToken: this.sessionToken,
-      fields: ['formatted_address', 'name', 'place_id', 'type', 'geometry', 'types']
-    }, (details) => {
-      this.startSession();
-      if (this.props.onSelect) {
-        this.props.onSelect(address, placeId, details);
-      } else {
-        this.props.onChange(address);
+    this.service.getDetails(
+      {
+        placeId: this.params.venue,
+        sessionToken: this.sessionToken,
+        fields: [
+          'formatted_address',
+          'name',
+          'place_id',
+          'type',
+          'geometry',
+          'types',
+        ],
+      },
+      details => {
+        this.startSession();
+        if (this.props.onSelect) {
+          this.props.onSelect(address, placeId, details);
+        } else {
+          this.props.onChange(address);
+        }
       }
-    })
+    );
   };
 
   getActiveSuggestion = () => {
