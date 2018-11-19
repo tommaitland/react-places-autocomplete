@@ -65,7 +65,7 @@ class PlacesAutocomplete extends React.Component {
       );
     }
 
-    
+
     this.startSession();
     this.autocompleteService = new window.google.maps.places.AutocompleteService();
     this.autocompleteOK = window.google.maps.places.PlacesServiceStatus.OK;
@@ -134,11 +134,20 @@ class PlacesAutocomplete extends React.Component {
 
   handleSelect = (address, placeId) => {
     this.clearSuggestions();
-    if (this.props.onSelect) {
-      this.props.onSelect(address, placeId);
-    } else {
-      this.props.onChange(address);
-    }
+    const fake = document.createElement('div');
+    this.service = new window.google.maps.places.PlacesService(fake);
+    this.service.getDetails({
+      placeId: this.params.venue,
+      sessionToken: this.sessionToken,
+      fields: ['formatted_address', 'name', 'place_id', 'type', 'geometry', 'types']
+    }, (details) => {
+      this.startSession();
+      if (this.props.onSelect) {
+        this.props.onSelect(address, placeId, details);
+      } else {
+        this.props.onChange(address);
+      }
+    })
   };
 
   getActiveSuggestion = () => {
